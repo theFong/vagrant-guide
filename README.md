@@ -4,7 +4,7 @@
 
 ## Run
 
-`make generate-vagrantfile`
+`make generate` 
 
 `vagrant up`
 
@@ -18,6 +18,10 @@ Vagrant is setup to use the aws profile found in `~/.aws/config` & `~/.aws/crede
 
 
 If you get this error message: `The image id '[ami-*]' does not exist (Fog::Compute::AWS::NotFound)` make sure to set the aws profile region value `~/.aws/config` as the same value thats passed into terraform.
+
+## Security
+
+Vagrant, by default, provisions a public IP for the ec2 instance. In this guide, we expose port 22 to allow ssh access as well. The SSH server behind port 22 is secured with via a newly generated priv/pub key found in `/keys` but a stronger security model may be desired in certain scenarios.
 
 ## Dependencies
 **Run `.brev/setup.sh` or use a Brev environment**
