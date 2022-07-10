@@ -20,8 +20,7 @@ Vagrant is setup to use the aws profile found in `~/.aws/config` & `~/.aws/crede
 If you get this error message: `The image id '[ami-*]' does not exist (Fog::Compute::AWS::NotFound)` make sure to set the aws profile region value `~/.aws/config` as the same value thats passed into terraform.
 
 ## Dependencies
-Installed with:
-Note: These can be setup by using a brev machine or running `.brev/setup.sh`
+**Run `.brev/setup.sh` or use a Brev environment**
 - Terraform Version v1.2.4
 - Vagrant 2.2.19
 - vagrant-aws (0.7.2, global)
