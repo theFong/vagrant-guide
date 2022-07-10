@@ -23,13 +23,17 @@ resource "aws_security_group" "sg" {
   }
 }
 
+locals {
+  key_path = "keys"
+}
+
 module "key_pair" {
   source                = "cloudposse/key-pair/aws"
   name                  = var.name
   version               = "0.18.0"
   attributes            = ["ssh", "key"]
   generate_ssh_key      = true
-  ssh_public_key_path   = "../keys"
+  ssh_public_key_path   = "../${local.key_path}"
   private_key_extension = ".pem"
   public_key_extension  = ".pub"
 }
@@ -57,7 +61,7 @@ data "aws_ami" "ubuntu" {
 resource "local_file" "vagrantfile" {
   content = templatefile("../templates/Vagrantfile.tpl", {
     key_pair_name    = module.key_pair.key_name
-    private_key_path = abspath(module.key_pair.private_key_filename)
+    private_key_path = "${local.key_path}/${basename(module.key_pair.private_key_filename)}"
     ami              = data.aws_ami.ubuntu.id // amazon ubuntu 20.04 lts
     security_group   = aws_security_group.sg.name
     profile          = var.aws_profile

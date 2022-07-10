@@ -9,3 +9,8 @@ variable "aws_profile" {
   default     = "default"
   description = "the local aws auth profile to use"
 }
+
+variable "region" {
+  type        = string
+  description = "the region that this profile defautls to"
+}
