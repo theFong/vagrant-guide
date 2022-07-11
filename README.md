@@ -6,9 +6,19 @@
 
 `make generate` 
 
-`vagrant up`
+`vagrant up --provision`
 
 `vagrant ssh`
+
+Within ssh shell:
+
+`cd /vagrant && make setup-app run-app`
+
+New ssh shell:
+
+`curl localhost:3000`
+
+Non-ssh(outer) shell:
 
 `vagrant destroy`
 
