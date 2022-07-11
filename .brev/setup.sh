@@ -2,10 +2,14 @@
 
 set -eo pipefail
 
+# Base
+sudo apt install zip build-essential -y
+
 # AWS
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
+rm -rf aws
 unzip awscliv2.zip
-sudo ./aws/install
+sudo ./aws/install --update
 rm awscliv2.zip
 rm -rf aws
 aws --version
@@ -27,7 +31,7 @@ vagrant --version
 vagrant plugin install vagrant-aws
 
 # add dummy box
-vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
+vagrant box add --force  dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
 
 # https://github.com/mitchellh/vagrant-aws/issues/566
 echo "
@@ -40,7 +44,7 @@ class Hash
   def except(*less_keys)
     slice(*keys - less_keys)
   end unless Hash.method_defined?(:except)
-end" >> /home/brev/.vagrant.d/gems/*/gems/vagrant-aws-*/lib/vagrant-aws/action/connect_aws.rb
+end" >> ~/.vagrant.d/gems/*/gems/vagrant-aws-*/lib/vagrant-aws/action/connect_aws.rb
 
 ## Node For app
 sudo apt update
