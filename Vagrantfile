@@ -9,5 +9,6 @@ Vagrant.configure('2') do |config|
     aws.security_groups = ['vagrant-guide']
     override.ssh.username = 'ubuntu'
     override.ssh.private_key_path = 'keys/vagrant-guide-ssh-key.pem'
+    config.vm.provision "shell", path: ".brev/setup.sh"
   end
 end

@@ -41,3 +41,9 @@ class Hash
     slice(*keys - less_keys)
   end unless Hash.method_defined?(:except)
 end" >> /home/brev/.vagrant.d/gems/*/gems/vagrant-aws-*/lib/vagrant-aws/action/connect_aws.rb
+
+## Node For app
+sudo apt update
+sudo apt install nodejs npm -y
+node -v
+npm -v
