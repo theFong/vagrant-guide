@@ -38,6 +38,7 @@ module "key_pair" {
   public_key_extension  = ".pub"
 }
 
+// amazon ubuntu 20.04 lts
 data "aws_ami" "ubuntu" {
   owners      = ["099720109477"]
   most_recent = true
@@ -59,12 +60,14 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "local_file" "vagrantfile" {
-  content = templatefile("../templates/Vagrantfile.tpl", {
+  content = templatefile("templates/Vagrantfile.tpl", {
     key_pair_name    = module.key_pair.key_name
     private_key_path = "${local.key_path}/${basename(module.key_pair.private_key_filename)}"
-    ami              = data.aws_ami.ubuntu.id // amazon ubuntu 20.04 lts
+    ami              = var.ami == "" ? data.aws_ami.ubuntu.id : var.ami
+    instance_type    = var.instance_type
     security_group   = aws_security_group.sg.name
     profile          = var.aws_profile
+    ssh_username     = var.ssh_username
   })
   filename = "../Vagrantfile"
 }
