@@ -33,6 +33,8 @@ If you get this error message: `The image id '[ami-*]' does not exist (Fog::Comp
 
 Vagrant, by default, provisions a **public IP** for the ec2 instance. In this guide, **port 22 is exposed** to allow easy ssh access. The SSH server behind port 22 is secured with via a newly generated priv/pub key found in `/keys` but **a stronger security model may be desired** in certain scenarios.
 
+Vagrant is configured to copy your ssh keys and config into the remote machine. This can be disabled by removing the file provision lines in the Vagrantfile.
+
 ## Dependencies
 **Run `.brev/setup.sh` or use a Brev environment**
 - Terraform Version v1.2.4

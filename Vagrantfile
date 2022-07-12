@@ -2,6 +2,8 @@ require 'vagrant-aws'
 Vagrant.configure('2') do |config|
   config.vm.box = 'dummy'
   config.vm.provision "shell", path: ".brev/setup.sh"
+  config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
+  config.vm.provision "file", source: "~/.ssh", destination: ".ssh"
   config.vm.provider 'aws' do |aws, override|
     aws.keypair_name = 'vagrant-guide-ssh-key'
     aws.instance_type = 't2.micro'
