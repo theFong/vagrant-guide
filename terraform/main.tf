@@ -64,16 +64,23 @@ locals {
   ami              = var.ami == "" ? data.aws_ami.ubuntu.id : var.ami
 }
 
-resource "local_file" "vagrantfile" {
+resource "local_file" "user_vagrantfile" {
   count = var.generate_vagrantfile ? 1 : 0
-  content = templatefile("templates/Vagrantfile.tpl", {
+  content = templatefile("templates/UserVagrantfile.tpl", {
     key_pair_name    = module.key_pair.key_name
     private_key_path = local.private_key_path
-    ami              = local.ami
-    instance_type    = var.instance_type
-    security_group   = aws_security_group.sg.name
     profile          = var.aws_profile
-    ssh_username     = var.ssh_username
+  })
+  filename = pathexpand("~/.vagrant.d/Vagrantfile")
+}
+
+resource "local_file" "project_vagrantfile" {
+  count = var.generate_vagrantfile ? 1 : 0
+  content = templatefile("templates/ProjectVagrantfile.tpl", {
+    ami            = local.ami
+    instance_type  = var.instance_type
+    security_group = aws_security_group.sg.name
+    ssh_username   = var.ssh_username
   })
   filename = "../Vagrantfile"
 }
