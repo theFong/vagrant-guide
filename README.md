@@ -42,3 +42,4 @@ Vagrant is configured to copy your ssh keys and config into the remote machine. 
 - vagrant-aws (0.7.2, global)
 - Requires a patch to the installed vagrant-aws plugin file `connect_aws.rb` since the [fix has not been merged and no release has been made](https://github.com/mitchellh/vagrant-aws/issues/566).
 - Vagrant box: dummy (aws, 0)
+

@@ -59,11 +59,17 @@ data "aws_ami" "ubuntu" {
   }
 }
 
+locals {
+  private_key_path = "${local.key_path}/${basename(module.key_pair.private_key_filename)}"
+  ami              = var.ami == "" ? data.aws_ami.ubuntu.id : var.ami
+}
+
 resource "local_file" "vagrantfile" {
+  count = var.generate_vagrantfile ? 1 : 0
   content = templatefile("templates/Vagrantfile.tpl", {
     key_pair_name    = module.key_pair.key_name
-    private_key_path = "${local.key_path}/${basename(module.key_pair.private_key_filename)}"
-    ami              = var.ami == "" ? data.aws_ami.ubuntu.id : var.ami
+    private_key_path = local.private_key_path
+    ami              = local.ami
     instance_type    = var.instance_type
     security_group   = aws_security_group.sg.name
     profile          = var.aws_profile

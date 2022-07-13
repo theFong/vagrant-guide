@@ -1,6 +1,5 @@
 variable "name" {
   type        = string
-  default     = "vagrant-guide"
   description = "Name"
 }
 
@@ -31,4 +30,10 @@ variable "instance_type" {
   type        = string
   default     = "t2.micro"
   description = "ec2 instance type"
+}
+
+variable "generate_vagrantfile" {
+  type = bool
+  default = true
+  description = "should generate vagrantfile"
 }
